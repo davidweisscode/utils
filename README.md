@@ -1,2 +1,2 @@
-# FileNameChanger
-Bash script to generate consistent file names
+# bash-helper
+Bash script utilities
