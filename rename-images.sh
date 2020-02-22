@@ -8,7 +8,8 @@ for file in *
 do
     # Rename files --> mv
     # Check against regex and substitute underscore(hyphen) and PANO(IMG) --> sed
-    mv -v $file $(echo $file | sed 's/_/-/g; s/PANO/IMG/g')
+    mv -v $file $(echo $file | sed 's/_/-/g; s/PANO/IMG/g; s/IMG-//g;')
 done
 
 printf "[END] Rename images\n"
+
