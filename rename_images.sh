@@ -12,6 +12,10 @@ do
     new_name=$(echo $new_name | sed "s/-/_/g")
     new_name=$(echo $new_name | sed "s/PXL_//g")
     new_name=$(echo $new_name | sed "s/IMG_//g")
+    new_name=$(echo $new_name | sed "s/WhatsApp//g")
+    new_name=$(echo $new_name | sed "s/Image//g")
+    new_name=$(echo $new_name | sed "s/Video//g")
+    new_name=$(echo $new_name | sed "s/Photo//g")
     mv -v $file $new_name
 done
 
