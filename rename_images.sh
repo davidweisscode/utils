@@ -8,7 +8,7 @@ printf "[START] Rename images\n\n"
 for file in *
 do
     new_name=$file
-    new_name=$(echo $new_name | sed "s/.*/\L&/") # lower case
+    new_name=$(echo $new_name | awk '{print tolower($0)}') # lower case, use awk because sed \L performs differently on linux/macos
     new_name=$(echo $new_name | sed "s/ /-/g")
     new_name=$(echo $new_name | sed "s/_/-/g")
     new_name=$(echo $new_name | sed "s/pxl//g")
