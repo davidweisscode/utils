@@ -21,9 +21,10 @@ do
     new_name=$(echo $new_name | sed "s/screenshot//g")
     new_name=$(echo $new_name | sed "s/night//g")
     new_name=$(echo $new_name | sed "s/portrait//g")
+    new_name=$(echo $new_name | sed "s/.mp//g")
     new_name=$(echo $new_name | sed "s/^_//")
     new_name=$(echo $new_name | sed "s/^-//")
-    # new_name=$(echo $new_name | sed -E 's,([0-9]{2}).([0-9]{2}).([0-9]{2}),20\3\2\1,g')
+    new_name=$(echo $new_name | sed "s/~//g")
     mv -v $file $new_name
 done
 
