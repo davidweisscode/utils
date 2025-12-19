@@ -1,7 +1,12 @@
+# This script is used to edit Obsidian markdown files in the user's notes directory.
+# Crossed out tasks (lines starting with "- [x]") that appear before a line containing "# Done"
+# are moved to the end of the file, after the "# Done" line. This helps in archiving completed tasks.
+# The script is scheduled to run periodically using cron.
+
 import os
 
-print("run file")
-notes_dir = os.path.expanduser("~/notes")
+print("start: move crossed out lines to archive at end of file")
+notes_dir = os.path.expanduser("~/notes")  # assume Obsidian vault is at ~/notes
 
 for filename in os.listdir(notes_dir):
     if filename.endswith(".md"):
@@ -10,9 +15,9 @@ for filename in os.listdir(notes_dir):
         with open(filepath, "r") as file:
             lines = file.readlines()
 
-        if "# Done" not in "".join(
-            lines
-        ):  # only edit files which have a "# Done" line. This line should be manually added by the user.
+        if (
+            "# Archive" not in "".join(lines)
+        ):  # only edit files which have an "# Archive" line. This line should be manually added by the user at the end of a note.
             continue
 
         remaining = []
@@ -22,7 +27,7 @@ for filename in os.listdir(notes_dir):
 
         # Separate crossed-out lines and remaining lines
         for line in lines:
-            if "# Done" in line:
+            if "# Archive" in line:
                 found_done = True
 
             if found_done:
@@ -32,11 +37,11 @@ for filename in os.listdir(notes_dir):
             else:
                 remaining.append(line)
 
-        # If we found the "# Done" line and any crossed-out lines, update the file
+        # If we found the "# Archive" line and any crossed-out lines, update the file
         if found_done and crossed_out:
             with open(filepath, "w") as file:
-                # Write the remaining lines (everything before "# Done")
+                # Write the remaining lines (everything before "# Archive")
                 file.writelines(remaining)
-                # Write the "# Done" section and append crossed-out lines to the end
+                # Write the "# Archive" section and append crossed-out lines to the end
                 file.writelines(done_section)
                 file.writelines(crossed_out)
